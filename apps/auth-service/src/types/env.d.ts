@@ -3,10 +3,14 @@ declare global {
     interface ProcessEnv {
       NODE_ENV: 'development' | 'production' | 'test';
       PORT?: string;
+      POSTGRES_PORT: string
+      POSTGRES_USER: string
+      POSTGRES_PASSWORD?: string
+      JWT_SECRET: string
+      POSTGRES_DB: string
+      POSTGRES_HOST: string
     }
   }
 }
 
-// If this file has no import/export statements (i.e. it's a script rather than a module)
-// convert it into a module by adding an empty export statement.
 export {};
