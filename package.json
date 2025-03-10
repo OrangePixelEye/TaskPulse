@@ -1,7 +1,13 @@
 {
   "name": "TaskPulse",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
+    "dev:backend": "turbo run dev --filter=apps/*",
+    "dev:frontend": "turbo run dev --filter=frontend",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

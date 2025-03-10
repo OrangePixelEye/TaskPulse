@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  api-gateway:
+    image: kong
+    ports:
+      - "8000:8000"
+    environment:
+      KONG_DATABASE: "off"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: taskpulse
+
