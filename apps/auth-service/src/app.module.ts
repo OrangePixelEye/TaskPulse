@@ -8,15 +8,17 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [AuthModule,
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: String(process.env.POSTGRES_PASSWORD),
-      database: process.env.POSTGRES_DB,
-      entities: [],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: process.env.POSTGRES_HOST,
+        port: parseInt(process.env.POSTGRES_PORT),
+        username: process.env.POSTGRES_USER,
+        password: String(process.env.POSTGRES_PASSWORD),
+        database: process.env.POSTGRES_DB,
+        entities: [__dirname + '/../**/*.entity.{ts,js}'],
+        synchronize: true,
+      })
     })
   ],
   controllers: [AppController],
