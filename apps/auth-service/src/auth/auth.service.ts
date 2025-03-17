@@ -9,15 +9,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(Auth)
     private authRepository: Repository<Auth>,
+    private jwtService: JwtService,
   ) {}
 
-  async create(createAuthDto: CreateAuthDto): Promise<Auth> {
+  async create(createAuthDto: CreateAuthDto): Promise<{
+    access_token: string
+  }> {
     const existingUser = await this.authRepository.findOneBy({
       email: createAuthDto.email,
     });
@@ -36,7 +40,13 @@ export class AuthService {
       passwordHash: hashedPassword, 
     });
 
-    return this.authRepository.save(newUser);
+    const user = await this.authRepository.save(newUser);
+    const payload = {
+      sub: user.id
+    }
+    return {
+      access_token: await this.jwtService.signAsync(payload)
+    }
   }
   findAll(): Promise<Auth[]> {
     return this.authRepository.find();
