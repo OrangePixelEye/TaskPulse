@@ -2,7 +2,6 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity('users')
 export class Auth {
-  // generate a table with id email passwordHash and createdAt updatedAt
   @PrimaryGeneratedColumn()
   id: number;
 
