@@ -25,7 +25,7 @@ export class AuthService {
       throw new ConflictException('Email already exists');
     }
 
-    const saltRounds = process.env.SALT_ROUNDS;
+    const saltRounds = Number(process.env.SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(
       createAuthDto.password,
       saltRounds,
