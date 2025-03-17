@@ -7,6 +7,7 @@ declare global {
       POSTGRES_USER: string
       POSTGRES_PASSWORD?: string
       JWT_SECRET: string
+      SALT_ROUNDS: number
       POSTGRES_DB: string
       POSTGRES_HOST: string
     }
